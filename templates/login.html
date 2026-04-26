@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login | Medicine Scanner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="login-page">
+    <main class="card center">
+        <h1>MEDICINE TESTING </h1>
+       <center><h8>Enter your username and password below</h8></center>
+        <div id="error" class="error"></div>
+        <form id="loginForm">
+            <label>Username</label>
+            <input type="text" name="username" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+       <center><p>New user? <a href="/signup">Sign up</a></p></center>
+    </main>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                username: form.username.value.trim(),
+                password: form.password.value
+            };
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result.status === 'success') {
+                window.location.href = '/';
+            } else {
+                document.getElementById('error').textContent = result.message || 'Login failed';
+            }
+        });
+    </script>
+   <footer class="footer"><center>
+  © 2026 MedScanner. Sri Eshwer College of Engineering.
+</footer></center>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Dashboard | Medicine Scanner</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body class="login-page dashboard-page">
+    <header>
+        <div class="brand">
+            <div class="brand-mark"></div>
+            <div>
+                <h1>+ MedScanner</h1>
+                <p>Medicine Testing & Monitoring System</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <span class="welcome-text">WELCOME, {{ username }}</span>
+            <button id="logoutBtn">Log-out</button>
+        </div>
+    </header>
+    <section class="main-content">
+        <div class="dashboard-panel">
+        <div class="tabs">
+            <button class="tab active" data-section="sectionScan"><span class="tab-icon">🔍</span> Scan / Lookup</button>
+            <button class="tab" data-section="sectionAdd"><span class="tab-icon">➕</span> Add Medicine</button>
+            <button class="tab" data-section="sectionList"><span class="tab-icon">📋</span> Your Medicines</button>
+        </div>
+
+        <div id="sectionScan" class="section active">
+            <div class="block card">
+                <h2>Scan / Lookup</h2>
+                <div id="scanner-container">
+                    <div id="reader"></div>
+                    <button id="stopScanBtn">Stop Scanning</button>
+                </div>
+                <input id="barcodeInput" type="text" placeholder="Enter barcode or scan" />
+                <button id="lookupBtn">Lookup</button>
+                <button id="startScanBtn">Start Camera Scan</button>
+                <div id="scanStatus"></div>
+
+                <div id="resultCard" class="result-card" style="display:none;">
+                    <div id="resultStatus" class="result-status"></div>
+                    <h3 id="resultName" class="result-name"></h3>
+                    <p id="resultExpiry" class="result-expiry"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="sectionAdd" class="section" style="margin-top:16px;">
+            <div class="block card add-medicine-card">
+                <h2>Add Medicine</h2>
+                <p id="addBarcodeInfo" class="muted">Barcode: <span id="addBarcodeValue">(not set yet)</span></p>
+
+                <div class="form-group">
+                    <label for="nameInput">Medicine Name</label>
+                    <input id="nameInput" placeholder="Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="expiryInput">Expiry Date</label>
+                    <input id="expiryInput" type="date" />
+                </div>
+
+                <div class="form-group">
+                    <label for="useInput">Use</label>
+                    <input id="useInput" placeholder="Use" />
+                </div>
+
+                <button id="saveBtn" class="btn btn-primary">Save</button>
+                <div id="saveStatus"></div>
+            </div>
+        </div>
+
+        <div id="sectionList" class="section" style="margin-top:16px;">
+            <div class="block full">
+                <h2>Your Medicines</h2>
+                <div id="medicinesGrid" class="medicines-grid"></div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

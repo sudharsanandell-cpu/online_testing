@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Signup | Medicine Scanner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="login-page">
+    <main class="card center">
+        <h1>Create Account</h1>
+        <div id="error" class="error"></div>
+        <form id="signupForm">
+            <label>Username</label>
+            <input type="text" name="username" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+      <center><p>Already registered? <a href="/login">Login</a></p></center>
+    </main>
+
+    <script>
+        const form = document.getElementById('signupForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                username: form.username.value.trim(),
+                email: form.email.value.trim(),
+                password: form.password.value
+            };
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result.status === 'success') {
+                window.location.href = '/login';
+            } else {
+                document.getElementById('error').textContent = result.message || 'Signup failed';
+            }
+        });
+    </script>
+</body>
+</html>
